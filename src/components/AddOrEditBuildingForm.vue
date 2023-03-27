@@ -6,14 +6,15 @@
         class="form-control"
         id="floatingInputGroup1"
         placeholder="Building Name"
+        ref="buildingName"
         :value="isAdd? '' :building.name"
         required
       />
     </div>
     <div class="form-floating">
-      <select class="form-select" id="" :value="isAdd? building.name :building.country">
+      <select class="form-select" id="" @change="updateSelectedOption($event.target.value, )" :value="JSON.stringify(building)">
         <option
-          :value="country.name"
+          :value="JSON.stringify(country)"
           v-for="country in countriesList"
           :key="country.id"
         >
@@ -35,7 +36,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "adddBuilding",
   props: {
@@ -58,14 +59,36 @@ export default {
   },
   data() {
     return {
-      countrySelected: null
+      countrySelected: this.building
     };
   },
   computed: {
-    ...mapGetters(["countries"]),
+    ...mapGetters(["countries", "selectedUser"]),
     countriesList() {
       return this.countries;
+    },
+    selectUser() {
+      return this.selectedUser
     }
+  },
+  methods: {
+    ...mapActions(['addBuilding']),
+    sumbiBuildingForm(e) {
+      e.preventDefault();
+      const buildingObject = {
+        name:this.$refs.buildingName.value, 
+        country:this.countrySelected.name,
+        id: Math.random()* 10000,
+        position: {lat: this.countrySelected.position[0], lng: this.countrySelected.position[0]}
+    }
+      this.addBuilding(buildingObject)
+       this.$emit('buildingAdded', true)
+    },
+    updateSelectedOption(value) {
+      console.log("val;ue ", value)
+      this.countrySelected = JSON.parse(value) ;
+    }
+
   },
   mounted() {
     console.log("add new " + this.building)

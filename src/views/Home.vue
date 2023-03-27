@@ -22,7 +22,7 @@
           
         </div>
         <div class="user-content__add-building" v-if="!isShowMap">
-            <AddOrEditBuildingForm  :building= "userAddOrEditBuilding" :isAdd ="isAddBuilding"/>
+            <AddOrEditBuildingForm @buildingAdded="listUpdated"  :building= "userAddOrEditBuilding" :isAdd ="isAddBuilding"/>
 
         </div>
 
@@ -83,6 +83,9 @@ export default {
       this.actionType = 'Add New Building'
       this.isShowMap = false
 
+    },
+    listUpdated() {
+        this.isShowMap = true
     }
   }, 
   mounted() {
@@ -147,11 +150,11 @@ $primaryColor: #595975;
       border-color: unset;
     }
   }
-    .user-content__add-building {
+  .user-content__add-building {
     padding: 20px 10px;
     display: flex;
     justify-content: center;
-      min-height: 400px;
+    min-height: 400px;
 
   }
 </style>

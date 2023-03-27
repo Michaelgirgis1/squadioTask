@@ -6,10 +6,10 @@ export default {
     setSelectedUser(state, user) {
       state.selectedUser = user
     },
+    setUserBuilding(state, building) {
+       state.selectedUser.buildings.push(building)
+    },
     setSelectedBuilding(state, building) {
       state.selectedBuilding = building
-    },
-    setIsLoading(state, isLoading) {
-      state.isLoading = isLoading
     }
   }

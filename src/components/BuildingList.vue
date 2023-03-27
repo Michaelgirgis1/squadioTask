@@ -1,7 +1,6 @@
 <template>
   <div class="building-list">
-    <div v-if="isLoading" class="loading-spinner"></div>
-    <div v-else-if="buildings.length" >
+    <div v-if="buildings.length" >
       <ul>
         <li v-for="building in buildings" :key="building.id" @click="onSelectBuilding(building)">
           <BuildingItem :building="building" :isSelected="selectedBuilding.id === building.id" />
@@ -28,10 +27,6 @@ export default {
     },
     selectedBuilding: {
       type: Object,
-      required: true
-    },
-    isLoading: {
-      type: Boolean,
       required: true
     }
   },
