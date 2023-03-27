@@ -1,9 +1,14 @@
 <template>
-    <h1>hoooooooome </h1>
+    <UserDropdown />
 </template>
 
 <script>
+import UserDropdown from '@/components/UserDropdown.vue'
 export default {
-    name: "HomeComponent"
+    name: "HomeComponent",
+    components: {
+        UserDropdown
+    }
+
 }
 </script>
