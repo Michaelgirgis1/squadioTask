@@ -4,7 +4,7 @@
       <UserDropdown :users="users" :selectedUserID="userSelectedId" />
     </section>
     <section class="home__content">
-      <div class="sidebar section-ui">
+      <section class="sidebar section-ui">
         <h2>Building</h2>
         <div class="sidebar__content">
           <div class="sidebar__buildings">
@@ -14,7 +14,19 @@
             Add Building
           </button>
         </div>
-      </div>
+      </section>
+      <section class="user-content section-ui">
+        <h2>{{actionType}}</h2>
+        <div class="user-content__map" v-if="isShowMap">
+            <BuildingMap :building= "userBuildingSelected"/>
+          
+        </div>
+        <div class="user-content__add-building" v-if="!isShowMap">
+            <AddOrEditBuildingForm  :building= "userAddOrEditBuilding" :isAdd ="isAddBuilding"/>
+
+        </div>
+
+      </section>
     </section>
   </div>
 </template>
@@ -22,16 +34,22 @@
 <script>
 import UserDropdown from "@/components/UserDropdown.vue";
 import BuildingList from "@/components/BuildingList.vue";
+import BuildingMap from "@/components/BuildingMap.vue";
+import AddOrEditBuildingForm from "@/components/AddOrEditBuildingForm.vue"
 import { mapGetters } from 'vuex'
 export default {
   name: "HomeComponent",
   data() {
     return {
-   
+        actionType: "Building Location",
+        isShowMap: true,
+        isAddBuilding: false,
+        userAddOrEditBuilding: {}
+
     };
   },
   computed: {
-    ...mapGetters(['getUsers', 'selectedUserBuildings', 'userBuildingSelected', 'userBuildingSelectedID', 'selectedUserID']),
+    ...mapGetters(['getUsers', 'selectedUserBuildings','countriesList', 'userBuildingSelected', 'userBuildingSelectedID', 'selectedUserID']),
     users() {
       return this.getUsers
     },
@@ -51,9 +69,24 @@ export default {
   components: {
     UserDropdown,
     BuildingList,
+    BuildingMap,
+    AddOrEditBuildingForm
   },
+  methods: {
+    addBuilding() {
+      this.userAddOrEditBuilding =    {
+        id: 'AFG',
+        name: 'Afghanistan',
+       position: [34.79120620588236, 67.78638470588234]
+    }
+      this.isAddBuilding = true
+      this.actionType = 'Add New Building'
+      this.isShowMap = false
+
+    }
+  }, 
   mounted() {
-    console.log("users list from store ", this.users, this.userSelectedId)
+    console.log("users list from store ", this.users, this.userBuildingSelected)
   }
 };
 </script>
@@ -99,4 +132,26 @@ $primaryColor: #595975;
     }
   }
 }
+  .btn {
+    background-color: $primaryColor !important;
+    color: #fff;
+    border-radius: 17px;
+    padding: 10px;
+    font-size: 18px;
+    outline: 0;
+    border: 0;
+    min-width: 100px;
+    &:hover {
+      color: #fff;
+      background-color: $primaryColor !important;
+      border-color: unset;
+    }
+  }
+    .user-content__add-building {
+    padding: 20px 10px;
+    display: flex;
+    justify-content: center;
+      min-height: 400px;
+
+  }
 </style>
