@@ -29,7 +29,13 @@ addBuilding({ commit },  building ) {
 
    commit('setSelectedUser', user)
   //  commit('setSelectedBuilding', state.selectedUser.buildings[0])
- }
+ },
+
+  updateSelectedUser({ commit, state }, index) {
+    commit('setSelectedUser', state.users[index])
+    commit('setSelectedBuilding', state.users[index].buildings[0])
+
+  },
   // async updateBuilding({ commit }, { user, building }) {
   //   const updatedBuilding = await buildingService.updateBuilding(building)
   //   const index = user.buildings.findIndex(b => b.id === updatedBuilding.id)

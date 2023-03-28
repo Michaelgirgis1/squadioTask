@@ -1,6 +1,6 @@
 export default {
     selectedUserBuildings(state) {
-      return state.selectedUser ? state.selectedUser.buildings : []
+      return state.selectedUser.buildings  || []
     },
     getUsers(state){
         return state.users

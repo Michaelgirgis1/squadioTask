@@ -2,8 +2,8 @@
   <div class="building-list">
     <div v-if="buildings.length" >
       <ul>
-        <li v-for="building in buildings" :key="building.id" @click="onSelectBuilding(building)">
-          <BuildingItem :building="building" :isSelected="selectedBuilding.id === building.id"
+        <li v-for="building in getBuilding" :key="building.id" @click="onSelectBuilding(building)">
+          <BuildingItem :building="building" :isSelected="getSelectedBuilding.id === building.id"
           @buildingDeleted= "changeActiveBuilding($event)" />
         </li>
       </ul>
@@ -20,6 +20,16 @@ import BuildingItem from '@/components/BuildingItem.vue'
 export default {
   components: {
     BuildingItem
+  },
+  computed: {
+    getBuilding() {
+      return this.buildings
+
+    },
+    getSelectedBuilding() {
+      return this.selectedBuilding
+    }
+
   },
   props: {
     buildings: {

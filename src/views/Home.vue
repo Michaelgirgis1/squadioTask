@@ -1,7 +1,7 @@
 <template>
   <div class="home-page">
     <section class="home__users-dropdown">
-      <UserDropdown :users="users" :selectedUserID="userSelectedId" />
+      <UserDropdown :users="users" :selectedUserID="userSelectedId" @userChanged="changeUserData($event)" />
     </section>
     <section class="home__content">
       <section class="sidebar section-ui">
@@ -22,7 +22,7 @@
           
         </div>
         <div class="user-content__add-building" v-if="!isShowMap">
-            <AddOrEditBuildingForm @buildingAdded="listUpdated"  :building= "userAddOrEditBuilding" :isAdd ="isAddBuilding"/>
+            <AddOrEditBuildingForm @buildingAdded="listUpdated" @cancelAdd="cancelAdd()"  :building= "userAddOrEditBuilding" :isAdd ="isAddBuilding"/>
 
         </div>
 
@@ -55,7 +55,7 @@ export default {
   watch: {
     selectedBuildings(newValue) {
       if(newValue.length === 0) {
-       this.addBuilding()
+        this.addBuilding()
 
       }
       console.log("listing after remove ", this.activeBuilding, this.selectedUserBuildings)
@@ -97,6 +97,18 @@ export default {
         console.log('activeBuilding', this.activeBuilding)
         this.actionType = 'Building Location';
         this.isShowMap = true
+    },
+    cancelAdd() {
+      this.listUpdated()
+    },
+    changeUserData(isChange) {
+      if(this.selectedBuildings.length) {
+        this.listUpdated()
+      } else {
+        this.addBuilding()
+      }
+      console.log("selectedBuildings after change user ", this.selectedBuildings, isChange)
+
     }
   }, 
   mounted() {

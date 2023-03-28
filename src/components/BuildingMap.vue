@@ -1,7 +1,7 @@
 <template>
   <div class="Building-map">
     <GMapMap
-      :center="center"
+      :center="getBuilding.position"
       :zoom="zoomLevel"
       :minZoom="minZoom"
       :maxZoom="maxZoom"
@@ -10,9 +10,9 @@
       style="width: 100%; height: 400px"
     >
       <GMapMarker
-        :key="marker.id"
-        @click="openMarker(marker.id)"
-        :position="marker.position"
+        :key="getBuilding.id"
+        @click="openMarker(getBuilding.id)"
+        :position="getBuilding.position"
       >
       </GMapMarker>
     </GMapMap>
@@ -29,6 +29,12 @@ export default {
       zoomLevel: 9,
       marker:  this.building
     };
+  },
+  computed: {
+    getBuilding() {
+      return this.building
+    }
+
   },
   props: {
     building: {
