@@ -48,6 +48,16 @@ export default {
 
     };
   },
+  watch: {
+    selectedBuildings(newValue) {
+      if(newValue.length === 0) {
+        this.isShowMap = false
+
+      }
+      console.log("listing after remove ", newValue)
+    }
+
+  },
   computed: {
     ...mapGetters(['getUsers', 'selectedUserBuildings','countriesList', 'userBuildingSelected', 'userBuildingSelectedID', 'selectedUserID']),
     users() {

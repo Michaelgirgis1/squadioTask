@@ -5,7 +5,7 @@
       <button
         type="button"
         class="delete-building"
-        @click="deleteBuilding(building.id)"
+        @click="deleteSelectedBuilding(building.id)"
       >
         <img src="../assets/delete.png" alt="delete image" srcset="" />
       </button>
@@ -42,9 +42,10 @@ export default {
   },
   methods: {
     ...mapActions(["deleteBuilding"]),
-     deleteBuilding(id) {
+     deleteSelectedBuilding(id) {
       console.log(id);
-      let newBuildings =this.selectUser.buildings.filter((user) => user.id === id)
+      let newBuildings = this.selectUser.buildings.filter((user) => user.id !== id)
+      // eslint-disable-next-line
       const user = {
         id: this.selectUser.id,
         name: this.selectUser.name,
