@@ -42,13 +42,7 @@ export default {
   props: {
     building: {
         type: Object,
-        require: true,
-        default() {
-            return {
-                name: ""
-
-            }
-        }
+        require: true
     
     },
     isAdd: {

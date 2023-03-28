@@ -44,13 +44,18 @@ export default {
         actionType: "Building Location",
         isShowMap: true,
         isAddBuilding: false,
-        userAddOrEditBuilding: {}
+        userAddOrEditBuilding: {
+        id: 'AFG',
+        name: 'Afghanistan',
+       position: [34.79120620588236, 67.78638470588234]
+       }
 
     };
   },
   watch: {
     selectedBuildings(newValue) {
       if(newValue.length === 0) {
+        this.isAddBuilding = true
         this.isShowMap = false
 
       }
@@ -84,11 +89,6 @@ export default {
   },
   methods: {
     addBuilding() {
-      this.userAddOrEditBuilding =    {
-        id: 'AFG',
-        name: 'Afghanistan',
-       position: [34.79120620588236, 67.78638470588234]
-    }
       this.isAddBuilding = true
       this.actionType = 'Add New Building';
       this.isShowMap = false
