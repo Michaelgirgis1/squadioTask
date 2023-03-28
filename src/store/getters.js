@@ -18,5 +18,8 @@ export default {
     },
     countries (state) {
         return state.countriesList
+    },
+    selectedUser (state) {
+        return state.selectedUser
     }
 }

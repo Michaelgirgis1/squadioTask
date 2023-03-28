@@ -1,8 +1,8 @@
 <template>
   <section class="user-dropdown">
     <select name="users" id="user"
-      @change="changeUser(selectedUser)">
-      <option :value="user.name" v-for="(user, index) of users" :key="index" :selected="selectedUserID === user.id" >{{user.name}}</option>
+      @change="changeUser()">
+      <option :value="user" v-for="(user, index) of users" :key="index" :selected="selectedUserID === user.id" >{{user.name}}</option>
     </select>
   </section>
 </template>

@@ -80,7 +80,7 @@ export default {
        position: [34.79120620588236, 67.78638470588234]
     }
       this.isAddBuilding = true
-      this.actionType = 'Add New Building'
+      this.actionType = 'Add New Building';
       this.isShowMap = false
 
     },

@@ -9,6 +9,9 @@ export default {
     setUserBuilding(state, building) {
        state.selectedUser.buildings.push(building)
     },
+    setUserDeleteBuilding(state, indx) {
+      state.selectedUser.buildings.splice(indx, 1)
+    },
     setSelectedBuilding(state, building) {
       state.selectedBuilding = building
     }

@@ -78,7 +78,7 @@ export default {
       const buildingObject = {
         name:this.$refs.buildingName.value, 
         country:this.countrySelected.name,
-        id: Math.random()* 10000,
+        id: Math.floor(Math.random()* 10000),
         position: {lat: this.countrySelected.position[0], lng: this.countrySelected.position[0]}
     }
       this.addBuilding(buildingObject)
