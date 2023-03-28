@@ -55,11 +55,10 @@ export default {
   watch: {
     selectedBuildings(newValue) {
       if(newValue.length === 0) {
-        this.isAddBuilding = true
-        this.isShowMap = false
+       this.addBuilding()
 
       }
-      console.log("listing after remove ", newValue)
+      console.log("listing after remove ", this.activeBuilding, this.selectedUserBuildings)
     }
 
   },
@@ -95,6 +94,8 @@ export default {
 
     },
     listUpdated() {
+        console.log('activeBuilding', this.activeBuilding)
+        this.actionType = 'Building Location';
         this.isShowMap = true
     }
   }, 

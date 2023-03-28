@@ -49,5 +49,6 @@ export default {
         ],
     },
     selectedBuilding: null,
-    countriesList: countries
+    countriesList: countries,
+    deletedBuildingID: null
 }

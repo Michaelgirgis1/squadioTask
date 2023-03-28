@@ -14,5 +14,8 @@ export default {
     },
     setSelectedBuilding(state, building) {
       state.selectedBuilding = building
+    },
+    setDeletedBuildingID(state, id) {
+      state.deletedBuildingID = id
     }
   }

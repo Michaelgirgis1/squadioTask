@@ -3,7 +3,8 @@
     <div v-if="buildings.length" >
       <ul>
         <li v-for="building in buildings" :key="building.id" @click="onSelectBuilding(building)">
-          <BuildingItem :building="building" :isSelected="selectedBuilding.id === building.id" />
+          <BuildingItem :building="building" :isSelected="selectedBuilding.id === building.id"
+          @buildingDeleted= "changeActiveBuilding($event)" />
         </li>
       </ul>
     </div>
@@ -33,6 +34,11 @@ export default {
   methods: {
     onSelectBuilding(building) {
       this.$emit('update:selectedBuilding', building)
+    },
+    changeActiveBuilding(e) {
+      // eslint-disable-next-line 
+      debugger
+      console.log("eee", e)
     }
   }
 }
