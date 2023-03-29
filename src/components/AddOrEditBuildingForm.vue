@@ -66,7 +66,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['addBuilding']),
+    ...mapActions(['addBuilding', 'updateBuilding']),
     sumbiBuildingForm(e) {
       e.preventDefault();
       const buildingObject = {
@@ -75,7 +75,9 @@ export default {
         id: Math.floor(Math.random()* 10000),
         position: {lat: this.countrySelected.position[0], lng: this.countrySelected.position[0]}
     }
-      this.addBuilding(buildingObject)
+      if(this.isAdd)  this.addBuilding(buildingObject)
+      // else this.updateBuilding(buildingObject)
+     
        this.$emit('buildingAdded', true)
     },
     updateSelectedOption(value) {
