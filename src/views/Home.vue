@@ -1,14 +1,14 @@
 <template>
   <div class="home-page">
     <section class="home__users-dropdown">
-      <UserDropdown :users="users" :selectedUserID="userSelectedId" />
+      <UserDropdown :users="users" :selectedUserID="userSelectedId" @userChanged="changeUserData($event)" />
     </section>
     <section class="home__content">
       <section class="sidebar section-ui">
         <h2>Building</h2>
         <div class="sidebar__content">
           <div class="sidebar__buildings">
-            <BuildingList :buildings="selectedBuildings" :selectedBuilding = "activeBuilding"/>
+            <BuildingList :buildings="selectedBuildings" @changeBuild="changeBuild($event)" :selectedBuilding = "activeBuilding"/>
           </div>
           <button type="button" class="btn" @click="addBuilding()">
             Add Building
@@ -22,7 +22,7 @@
           
         </div>
         <div class="user-content__add-building" v-if="!isShowMap">
-            <AddOrEditBuildingForm @buildingAdded="listUpdated"  :building= "userAddOrEditBuilding" :isAdd ="isAddBuilding"/>
+            <AddOrEditBuildingForm @buildingAdded="listUpdated" @cancelAdd="cancelAdd()"  :building= "userAddOrEditBuilding" :isAdd ="isAddBuilding"/>
 
         </div>
 
@@ -44,14 +44,32 @@ export default {
         actionType: "Building Location",
         isShowMap: true,
         isAddBuilding: false,
-        userAddOrEditBuilding: {}
+        selectedUserIndex: 0,
+        userAddOrEditBuilding: {
+          id: 'AFG',
+          name: 'Afghanistan',
+          position: [34.79120620588236, 67.78638470588234]
+       }
 
     };
   },
+  watch: {
+    selectedBuildings(newValue) {
+      if(newValue.length === 0) {
+        this.addBuilding()
+
+      }
+    }
+
+  },
   computed: {
-    ...mapGetters(['getUsers', 'selectedUserBuildings','countriesList', 'userBuildingSelected', 'userBuildingSelectedID', 'selectedUserID']),
+   
+    ...mapGetters(['getUsers', 'selectedUserBuildings','countries', 'userBuildingSelected', 'userBuildingSelectedID', 'selectedUserID']),
     users() {
       return this.getUsers
+    },
+     countriesList() {
+      return this.countries;
     },
     selectedBuildings() {
         return this.selectedUserBuildings
@@ -74,22 +92,50 @@ export default {
   },
   methods: {
     addBuilding() {
-      this.userAddOrEditBuilding =    {
-        id: 'AFG',
-        name: 'Afghanistan',
-       position: [34.79120620588236, 67.78638470588234]
-    }
+      this.userAddOrEditBuilding = {
+          id: 'AFG',
+          name: 'Afghanistan',
+          position: [34.79120620588236, 67.78638470588234]
+       }
       this.isAddBuilding = true
       this.actionType = 'Add New Building';
       this.isShowMap = false
 
     },
     listUpdated() {
+        this.actionType = 'Building Location';
         this.isShowMap = true
+    },
+    cancelAdd() {
+      if(this.selectedBuildings.length > 0) {
+        this.listUpdated()
+
+      }
+    },
+    changeUserData(index) {
+      this.selectedUserIndex = index
+      if(this.selectedBuildings.length) {
+        this.listUpdated()
+      } else {
+        this.addBuilding()
+      }
+
+    },
+    changeBuild(building){
+      // array.find(element => element > 10);
+      let getBuildingCountry = null
+      this.countriesList.forEach(element => {
+        if(element.id === building.country) {
+           getBuildingCountry = element 
+        }
+        console.log (element.name) 
+
+      })
+      this.userAddOrEditBuilding = {...getBuildingCountry}
+      this.isAddBuilding = false
+      this.actionType = 'Edit Building';
+      this.isShowMap = false
     }
-  }, 
-  mounted() {
-    console.log("users list from store ", this.users, this.userBuildingSelected)
   }
 };
 </script>

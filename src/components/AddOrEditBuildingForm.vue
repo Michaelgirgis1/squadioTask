@@ -7,7 +7,7 @@
         id="floatingInputGroup1"
         placeholder="Building Name"
         ref="buildingName"
-        :value="isAdd? '' :building.name"
+        :value="isAdd? '' :building.buildingName"
         required
       />
     </div>
@@ -42,13 +42,7 @@ export default {
   props: {
     building: {
         type: Object,
-        require: true,
-        default() {
-            return {
-                name: ""
-
-            }
-        }
+        require: true
     
     },
     isAdd: {
@@ -72,7 +66,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['addBuilding']),
+    ...mapActions(['addBuilding', 'updateBuilding']),
     sumbiBuildingForm(e) {
       e.preventDefault();
       const buildingObject = {
@@ -81,17 +75,18 @@ export default {
         id: Math.floor(Math.random()* 10000),
         position: {lat: this.countrySelected.position[0], lng: this.countrySelected.position[0]}
     }
-      this.addBuilding(buildingObject)
+      if(this.isAdd)  this.addBuilding(buildingObject)
+      // else this.updateBuilding(buildingObject)
+     
        this.$emit('buildingAdded', true)
     },
     updateSelectedOption(value) {
-      console.log("val;ue ", value)
       this.countrySelected = JSON.parse(value) ;
+    }, 
+    cancelAdddBuilding() {
+      this.$emit("cancelAdd")
     }
 
-  },
-  mounted() {
-    console.log("add new " + this.building)
   }
 };
 </script>

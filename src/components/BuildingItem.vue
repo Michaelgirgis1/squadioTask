@@ -5,14 +5,14 @@
       <button
         type="button"
         class="delete-building"
-        @click="deleteBuilding(building.id)"
+        @click="deleteSelectedBuilding(building.id, isSelected)"
       >
         <img src="../assets/delete.png" alt="delete image" srcset="" />
       </button>
       <button
         type="button"
         class="edit-building"
-        @click="editBuilding(building.id)"
+        @click="editBuilding(building)"
       >
         <img src="../assets/edit.png" alt="edit image " srcset="" />
       </button>
@@ -42,19 +42,20 @@ export default {
   },
   methods: {
     ...mapActions(["deleteBuilding"]),
-     deleteBuilding(id) {
-      console.log(id);
-      let newBuildings =this.selectUser.buildings.filter((user) => user.id === id)
+    deleteSelectedBuilding(id, isActive) {
+      let newBuildings = this.selectUser.buildings.filter((user) => user.id !== id)
+      // eslint-disable-next-line
       const user = {
         id: this.selectUser.id,
         name: this.selectUser.name,
         buildings: newBuildings,
       };
-      this.deleteBuilding(user);
-      this.$emit("buildingDeleted", id);
+      this.deleteBuilding({user, isActive});
+      this.$emit("buildingDeleted", isActive);
     },
-    editBuilding(index) {
-      console.log(index);
+    editBuilding(building) {
+      console.log(building);
+      this.$emit("editBuilding", building)
     },
   },
 };

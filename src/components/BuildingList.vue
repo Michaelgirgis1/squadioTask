@@ -2,8 +2,10 @@
   <div class="building-list">
     <div v-if="buildings.length" >
       <ul>
-        <li v-for="building in buildings" :key="building.id" @click="onSelectBuilding(building)">
-          <BuildingItem :building="building" :isSelected="selectedBuilding.id === building.id" />
+        <li v-for="building in getBuilding" :key="building.id" @click="onSelectBuilding(building)">
+          <BuildingItem :building="building" :isSelected="getSelectedBuilding.id === building.id"
+          @editBuilding="editBuilding($event)"
+          @buildingDeleted= "changeActiveBuilding($event)" />
         </li>
       </ul>
     </div>
@@ -20,6 +22,16 @@ export default {
   components: {
     BuildingItem
   },
+  computed: {
+    getBuilding() {
+      return this.buildings
+
+    },
+    getSelectedBuilding() {
+      return this.selectedBuilding
+    }
+
+  },
   props: {
     buildings: {
       type: Array,
@@ -32,7 +44,15 @@ export default {
   },
   methods: {
     onSelectBuilding(building) {
-      this.$emit('update:selectedBuilding', building)
+      // this.$emit('update:selectedBuilding', building);
+      this.$store.commit('setSelectedBuilding', building);
+    },
+    changeActiveBuilding(e) {
+      // eslint-disable-next-line 
+      console.log("eee", e)
+    },
+    editBuilding(building) {
+      this.$emit("changeBuild", building)
     }
   }
 }
