@@ -12,7 +12,7 @@
       <button
         type="button"
         class="edit-building"
-        @click="editBuilding(building.id)"
+        @click="editBuilding(building)"
       >
         <img src="../assets/edit.png" alt="edit image " srcset="" />
       </button>
@@ -53,8 +53,9 @@ export default {
       this.deleteBuilding({user, isActive});
       this.$emit("buildingDeleted", isActive);
     },
-    editBuilding(index) {
-      console.log(index);
+    editBuilding(building) {
+      console.log(building);
+      this.$emit("editBuilding", building)
     },
   },
 };

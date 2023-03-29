@@ -7,7 +7,7 @@
         id="floatingInputGroup1"
         placeholder="Building Name"
         ref="buildingName"
-        :value="isAdd? '' :building.name"
+        :value="isAdd? '' :building.buildingName"
         required
       />
     </div>

@@ -8,7 +8,7 @@
         <h2>Building</h2>
         <div class="sidebar__content">
           <div class="sidebar__buildings">
-            <BuildingList :buildings="selectedBuildings" :selectedBuilding = "activeBuilding"/>
+            <BuildingList :buildings="selectedBuildings" @changeBuild="changeBuild($event)" :selectedBuilding = "activeBuilding"/>
           </div>
           <button type="button" class="btn" @click="addBuilding()">
             Add Building
@@ -63,9 +63,13 @@ export default {
 
   },
   computed: {
-    ...mapGetters(['getUsers', 'selectedUserBuildings','countriesList', 'userBuildingSelected', 'userBuildingSelectedID', 'selectedUserID']),
+   
+    ...mapGetters(['getUsers', 'selectedUserBuildings','countries', 'userBuildingSelected', 'userBuildingSelectedID', 'selectedUserID']),
     users() {
       return this.getUsers
+    },
+     countriesList() {
+      return this.countries;
     },
     selectedBuildings() {
         return this.selectedUserBuildings
@@ -88,6 +92,11 @@ export default {
   },
   methods: {
     addBuilding() {
+      this.userAddOrEditBuilding = {
+          id: 'AFG',
+          name: 'Afghanistan',
+          position: [34.79120620588236, 67.78638470588234]
+       }
       this.isAddBuilding = true
       this.actionType = 'Add New Building';
       this.isShowMap = false
@@ -111,6 +120,21 @@ export default {
         this.addBuilding()
       }
 
+    },
+    changeBuild(building){
+      // array.find(element => element > 10);
+      let getBuildingCountry = null
+      this.countriesList.forEach(element => {
+        if(element.id === building.country) {
+           getBuildingCountry = element 
+        }
+        console.log (element.name) 
+
+      })
+      this.userAddOrEditBuilding = {...getBuildingCountry}
+      this.isAddBuilding = false
+      this.actionType = 'Edit Building';
+      this.isShowMap = false
     }
   }
 };
