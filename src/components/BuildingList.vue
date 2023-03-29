@@ -43,11 +43,11 @@ export default {
   },
   methods: {
     onSelectBuilding(building) {
-      this.$emit('update:selectedBuilding', building)
+      // this.$emit('update:selectedBuilding', building);
+      this.$store.commit('setSelectedBuilding', building);
     },
     changeActiveBuilding(e) {
       // eslint-disable-next-line 
-      debugger
       console.log("eee", e)
     }
   }

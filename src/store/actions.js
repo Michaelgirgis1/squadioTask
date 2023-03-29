@@ -23,12 +23,12 @@ addBuilding({ commit },  building ) {
 },
 
  deleteBuilding({commit}, {user, isActive}) {
-  if(isActive) {
-    commit('setSelectedBuilding', user.buildings[0])
-  }
-
+    if(isActive) {
+      commit('setSelectedBuilding', user.buildings[0])
+    }
+   commit('setSelectedAtUsers', user)
    commit('setSelectedUser', user)
-  //  commit('setSelectedBuilding', state.selectedUser.buildings[0])
+   //  commit('setSelectedBuilding', state.selectedUser.buildings[0])
  },
 
   updateSelectedUser({ commit, state }, index) {

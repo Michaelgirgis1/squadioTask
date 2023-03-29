@@ -79,16 +79,12 @@ export default {
        this.$emit('buildingAdded', true)
     },
     updateSelectedOption(value) {
-      console.log("val;ue ", value)
       this.countrySelected = JSON.parse(value) ;
     }, 
     cancelAdddBuilding() {
       this.$emit("cancelAdd")
     }
 
-  },
-  mounted() {
-    console.log("add new " + this.building)
   }
 };
 </script>

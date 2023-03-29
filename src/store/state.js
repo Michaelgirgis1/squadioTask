@@ -50,5 +50,6 @@ export default {
     },
     selectedBuilding: null,
     countriesList: countries,
-    deletedBuildingID: null
+    deletedBuildingID: null,
+    selectedUserIndex: 0
 }

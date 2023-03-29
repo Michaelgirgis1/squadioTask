@@ -44,10 +44,11 @@ export default {
         actionType: "Building Location",
         isShowMap: true,
         isAddBuilding: false,
+        selectedUserIndex: 0,
         userAddOrEditBuilding: {
-        id: 'AFG',
-        name: 'Afghanistan',
-       position: [34.79120620588236, 67.78638470588234]
+          id: 'AFG',
+          name: 'Afghanistan',
+          position: [34.79120620588236, 67.78638470588234]
        }
 
     };
@@ -58,7 +59,6 @@ export default {
         this.addBuilding()
 
       }
-      console.log("listing after remove ", this.activeBuilding, this.selectedUserBuildings)
     }
 
   },
@@ -94,25 +94,24 @@ export default {
 
     },
     listUpdated() {
-        console.log('activeBuilding', this.activeBuilding)
         this.actionType = 'Building Location';
         this.isShowMap = true
     },
     cancelAdd() {
-      this.listUpdated()
+      if(this.selectedBuildings.length > 0) {
+        this.listUpdated()
+
+      }
     },
-    changeUserData(isChange) {
+    changeUserData(index) {
+      this.selectedUserIndex = index
       if(this.selectedBuildings.length) {
         this.listUpdated()
       } else {
         this.addBuilding()
       }
-      console.log("selectedBuildings after change user ", this.selectedBuildings, isChange)
 
     }
-  }, 
-  mounted() {
-    console.log("users list from store ", this.users, this.userBuildingSelected)
   }
 };
 </script>

@@ -25,10 +25,12 @@ export default {
     },
     methods: {
       ...mapActions(['updateSelectedUser']),
-        changeUser(user) {
+
+        async changeUser(user) {
             console.log(user.target.selectedIndex)
+            await this.$store.commit('setSelectedUserIndex', user.target.selectedIndex)
             this.updateSelectedUser(user.target.selectedIndex)
-            this.$emit("userChanged", true)
+            this.$emit("userChanged", user.target.selectedIndex)
         }
     }
 }

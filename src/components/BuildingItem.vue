@@ -50,7 +50,7 @@ export default {
         name: this.selectUser.name,
         buildings: newBuildings,
       };
-       this.deleteBuilding({user, isActive});
+      this.deleteBuilding({user, isActive});
       this.$emit("buildingDeleted", isActive);
     },
     editBuilding(index) {
